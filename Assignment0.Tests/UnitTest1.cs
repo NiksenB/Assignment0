@@ -29,7 +29,7 @@ namespace Assignment0.Tests
             var output = Program.IsLeapYear(input);
 
             //Assert
-            Assert.Equal(true, output);
+            Assert.Equal(false, output);
         }
 
         [Fact]
@@ -106,7 +106,7 @@ namespace Assignment0.Tests
             var output = writer.GetStringBuilder().ToString().Trim();
 
             //Assert
-            Assert.Equal("yay", output);
+            Assert.Equal("nay", output);
         }
 
         [Fact]
@@ -163,5 +163,40 @@ namespace Assignment0.Tests
             Assert.Equal("yay", output);
         }
         
+        [Fact]
+        public void test_main_false_isLeapYear_1581()
+        {
+            //Arrange
+            var writer = new StringWriter();
+            Console.SetOut(writer);
+            
+            var input = new StringReader("1581");
+            Console.SetIn(input);
+            
+            //Act
+            Program.Main(new string[0]);
+            var output = writer.GetStringBuilder().ToString().Trim();
+
+            //Assert
+            Assert.Equal("nay", output);
+        }
+
+        [Fact]
+        public void test_main_false_isLeapYear_text()
+        {
+            //Arrange
+            var writer = new StringWriter();
+            Console.SetOut(writer);
+            
+            var input = new StringReader("text");
+            Console.SetIn(input);
+            
+            //Act
+            Program.Main(new string[0]);
+            var output = writer.GetStringBuilder().ToString().Trim();
+
+            //Assert
+            Assert.Equal("Exception! Please write a number...", output);
+        }
     }
 }

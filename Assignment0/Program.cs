@@ -6,24 +6,32 @@ namespace Assignment0
     {
         public static void Main(string[] args)
         {
-            var input = Console.ReadLine();
-            if (IsLeapYear(Int32.Parse(input))){
-                Console.WriteLine("yay");
-            } else {
-                Console.WriteLine("nay");
+            try {
+                var input = Int32.Parse(Console.ReadLine());
+                if (IsLeapYear(input)){
+                    Console.WriteLine("yay");
+                } else {
+                    Console.WriteLine("nay");
+                }
+            } catch (FormatException e) {
+                Console.WriteLine("Exception! Please write a number...");
             }
         }
 
         public static bool IsLeapYear(int year) 
         {
-            if (year % 4 == 0) {
-                if (year % 100 != 0 || year % 400 == 0) {
-                    return true;
+            if (year <= 1581) {
+                return false;
+            } else {
+                if (year % 4 == 0) {
+                    if (year % 100 != 0 || year % 400 == 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
-            } else {
-                return false;
             }
         }
     }
