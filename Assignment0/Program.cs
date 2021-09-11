@@ -13,7 +13,7 @@ namespace Assignment0
                 } else {
                     Console.WriteLine("nay");
                 }
-            } catch (FormatException e) {
+            } catch (FormatException) {
                 Console.WriteLine("Exception! Please write a number...");
             }
         }
@@ -21,7 +21,7 @@ namespace Assignment0
         public static bool IsLeapYear(int year) 
         {
             if (year <= 1581) {
-                return false;
+                throw new InvalidInputException("The year " + year + " is too soon!");
             } else {
                 if (year % 4 == 0) {
                     if (year % 100 != 0 || year % 400 == 0) {

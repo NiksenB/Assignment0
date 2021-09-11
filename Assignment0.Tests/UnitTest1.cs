@@ -7,7 +7,7 @@ namespace Assignment0.Tests
     public class UnitTest1
     {
         [Fact]
-        public void test_true_isLeapYear_2020()
+        public void isLeapYear_2020_true()
         {
             //Arrange
             var input = 2020;
@@ -20,20 +20,7 @@ namespace Assignment0.Tests
         }
 
         [Fact]
-        public void test_true_isLeapYear_44bc()
-        {
-            //Arrange
-            var input = -44;
-            
-            //Act
-            var output = Program.IsLeapYear(input);
-
-            //Assert
-            Assert.Equal(false, output);
-        }
-
-        [Fact]
-        public void test_false_isLeapYear_2019()
+        public void isLeapYear_2019_false()
         {
             //Arrange
             var input = 2019;
@@ -46,7 +33,7 @@ namespace Assignment0.Tests
         }
 
         [Fact]
-        public void test_false_isLeapYear_2100()
+        public void isLeapYear_2100_false()
         {
             //Arrange
             var input = 2100;
@@ -59,7 +46,7 @@ namespace Assignment0.Tests
         }
 
         [Fact]
-        public void test_true_isLeapYear_2400()
+        public void isLeapYear_2400_true()
         {
             //Arrange
             var input = 2400;
@@ -74,12 +61,11 @@ namespace Assignment0.Tests
 
 
         [Fact]
-        public void test_main_true_isLeapYear_2020()
+        public void isLeapYear_main_2020_true()
         {
             //Arrange
             var writer = new StringWriter();
             Console.SetOut(writer);
-            
             var input = new StringReader("2020");
             Console.SetIn(input);
             
@@ -92,30 +78,11 @@ namespace Assignment0.Tests
         }
 
         [Fact]
-        public void test_main_true_isLeapYear_44bc()
+        public void isLeapYear_main_2019_false()
         {
             //Arrange
             var writer = new StringWriter();
             Console.SetOut(writer);
-            
-            var input = new StringReader("-44");
-            Console.SetIn(input);
-            
-            //Act
-            Program.Main(new string[0]);
-            var output = writer.GetStringBuilder().ToString().Trim();
-
-            //Assert
-            Assert.Equal("nay", output);
-        }
-
-        [Fact]
-        public void test_main_false_isLeapYear_2019()
-        {
-            //Arrange
-            var writer = new StringWriter();
-            Console.SetOut(writer);
-            
             var input = new StringReader("2019");
             Console.SetIn(input);
             
@@ -128,12 +95,11 @@ namespace Assignment0.Tests
         }
 
         [Fact]
-        public void test_main_false_isLeapYear_2100()
+        public void isLeapYear_main_2100_false()
         {
             //Arrange
             var writer = new StringWriter();
             Console.SetOut(writer);
-            
             var input = new StringReader("2100");
             Console.SetIn(input);
             
@@ -146,12 +112,11 @@ namespace Assignment0.Tests
         }
 
         [Fact]
-        public void test_main_true_isLeapYear_2400()
+        public void isLeapYear_main_2400_true()
         {
             //Arrange
             var writer = new StringWriter();
             Console.SetOut(writer);
-            
             var input = new StringReader("2400");
             Console.SetIn(input);
             
@@ -164,39 +129,76 @@ namespace Assignment0.Tests
         }
         
         [Fact]
-        public void test_main_false_isLeapYear_1581()
+        public void isLeapYear_main_1581_throwsInvalidInputException()
         {
             //Arrange
             var writer = new StringWriter();
             Console.SetOut(writer);
-            
             var input = new StringReader("1581");
             Console.SetIn(input);
             
             //Act
+            Action action = () => 
             Program.Main(new string[0]);
             var output = writer.GetStringBuilder().ToString().Trim();
 
             //Assert
-            Assert.Equal("nay", output);
+            var caughtException = Assert.Throws<InvalidInputException>(action);
+            Assert.Equal("The year 1581 is too soon!", caughtException.Message);
         }
 
-        [Fact]
-        public void test_main_false_isLeapYear_text()
+                [Fact]
+        public void isLeapYear_main_44bc_throwsInvalidInputException()
         {
             //Arrange
             var writer = new StringWriter();
             Console.SetOut(writer);
-            
-            var input = new StringReader("text");
+            var input = new StringReader("-44");
             Console.SetIn(input);
             
             //Act
+            Action action = () => 
             Program.Main(new string[0]);
             var output = writer.GetStringBuilder().ToString().Trim();
 
             //Assert
+            var caughtException = Assert.Throws<InvalidInputException>(action);
+            Assert.Equal("The year -44 is too soon!", caughtException.Message);
+        }
+
+        [Fact]
+        public void isLeapYear_main_string_catchesFormatException()
+        {
+            //Arrange
+            var writer = new StringWriter();
+            Console.SetOut(writer);
+            var input = new StringReader("text");
+            Console.SetIn(input);
+
+            //Act
+            Program.Main(new string[0]);
+            var output = writer.GetStringBuilder().ToString().Trim();
+
+            // Assert
             Assert.Equal("Exception! Please write a number...", output);
         }
+
+        //[Fact]
+        // public void isLeapYear_main_string_throwsFormatException()
+        // {
+        //     // Arrange
+        //     var writer = new StringWriter();
+        //     Console.SetOut(writer);
+        //     var input = new StringReader("text");
+        //     Console.SetIn(input);
+
+        //     // Act
+        //     Action action = () => Program.Main(new string[0]); 
+        //     var output = writer.GetStringBuilder().ToString().Trim();
+
+        //     // Assert
+        //     var caughtException = Assert.Throws<FormatException>(action);
+        //     Assert.Equal("Exception! Please write a number...", caughtException.Message);
+        // }
     }
 }
